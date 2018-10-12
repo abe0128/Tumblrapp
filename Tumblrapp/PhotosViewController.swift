@@ -81,6 +81,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         return posts.count
     }
     
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var photoViewController = segue.destination as! PhotosViewController
+        
+        PhotosViewController.image = self.imageView.image
+    }
 }

@@ -58,7 +58,6 @@
                     <navigationItem key="navigationItem" title="Photos of Humans" id="Scs-EA-veU"/>
                     <connections>
                         <outlet property="tableView" destination="d55-Gs-pBI" id="hiL-m1-y48"/>
-                        <segue destination="cQE-lU-fqk" kind="push" id="aA9-Rm-e89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -83,7 +82,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Pp1-uQ-AXa"/>
                     <connections>
-                        <outlet property="backdropImage" destination="yOt-YD-TY8" id="EmG-92-izi"/>
+                        <outlet property="detailImage" destination="yOt-YD-TY8" id="Oxa-5f-fe3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rnu-Pl-OwU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -109,7 +108,4 @@
             <point key="canvasLocation" x="40.799999999999997" y="25.637181409295355"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="aA9-Rm-e89"/>
-    </inferredMetricsTieBreakers>
 </document>
