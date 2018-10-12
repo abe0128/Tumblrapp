@@ -11,6 +11,7 @@ import AlamofireImage
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,20 +19,21 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     var refreshControl: UIRefreshControl!
     var isMoreDataLoading = false
     
+    
     //var image: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 200
+        
+        loadMoreData()
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(PhotosViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.estimatedRowHeight = 200
         fetchPhotos()
         
     }
@@ -95,31 +97,41 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func loadMoreData() {
-        
-        // ... Create the NSURLRequest (myRequest) ...
-        let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")!
-        
-        // Configure session so that completion handler is executed on main UI thread
-        let session = URLSession(configuration: URLSessionConfiguration.default,
-                                 delegate:nil,
-                                 delegateQueue:OperationQueue.main
+        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV&offset=\(self.posts.count)")
+        let request = URLRequest(url: url!)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate:nil,
+            delegateQueue:OperationQueue.main
         )
-        let task : URLSessionDataTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
-            
-            // Update flag
-            self.isMoreDataLoading = false
-            
-            // ... Use the new data to update the data source ...
-            
-            // Reload the tableView now that there is new data
-            self.tableView.reloadData()
-        })
+        
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                self.isMoreDataLoading = false
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options:[]) as? NSDictionary {
+                        print("responseDictionary: \(responseDictionary)")
+                        
+                        // Recall there are two fields in the response dictionary, 'meta' and 'response'.
+                        // This is how we get the 'response' field
+                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
+                        
+                        // This is where you will store the returned array of posts in your posts property
+                        //self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
+                        self.posts = responseFieldDictionary["posts"] as! [NSDictionary] as! [[String : Any]]
+                        self.tableView.reloadData()
+                    }
+                }
+        });
         task.resume()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        if (!isMoreDataLoading) {
+        if (!isMoreDataLoading)
+        {
             let scrollViewContentHeight = tableView.contentSize.height
             let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
             
@@ -127,6 +139,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             {
                 isMoreDataLoading = true
                 
+                //fetchPhotos()
                 loadMoreData()
             }
         }

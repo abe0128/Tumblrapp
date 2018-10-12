@@ -72,7 +72,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yOt-YD-TY8">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kfl-Bn-78d">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="cQE-lU-fqk" id="fcx-6b-YO6"/>
+                                </connections>
+                            </scrollView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yOt-YD-TY8">
                                 <rect key="frame" x="0.0" y="64" width="375" height="286"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -83,6 +90,7 @@
                     <navigationItem key="navigationItem" id="Pp1-uQ-AXa"/>
                     <connections>
                         <outlet property="detailImage" destination="yOt-YD-TY8" id="Oxa-5f-fe3"/>
+                        <outlet property="scrollView" destination="kfl-Bn-78d" id="W00-vw-Crg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rnu-Pl-OwU" userLabel="First Responder" sceneMemberID="firstResponder"/>
