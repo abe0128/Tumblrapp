@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Photos View Controller-->
+        <!--Photos of Humans-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PhotosViewController" customModule="Tumblrapp" customModuleProvider="target" sceneMemberID="viewController">
@@ -46,6 +46,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="photoImage" destination="tLs-ah-ebp" id="eKq-aE-zi2"/>
+                                            <segue destination="cQE-lU-fqk" kind="show" id="AyO-xk-Qha"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -54,7 +55,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Scs-EA-veU"/>
+                    <navigationItem key="navigationItem" title="Photos of Humans" id="Scs-EA-veU"/>
                     <connections>
                         <outlet property="tableView" destination="d55-Gs-pBI" id="hiL-m1-y48"/>
                         <segue destination="cQE-lU-fqk" kind="push" id="aA9-Rm-e89"/>
@@ -64,21 +65,30 @@
             </objects>
             <point key="canvasLocation" x="980" y="25.637181409295355"/>
         </scene>
-        <!--View Controller-->
+        <!--Photo Details View Controller-->
         <scene sceneID="4zn-X5-PAa">
             <objects>
-                <viewController id="cQE-lU-fqk" sceneMemberID="viewController">
+                <viewController id="cQE-lU-fqk" customClass="PhotoDetailsViewController" customModule="Tumblrapp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="edn-2K-gJV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yOt-YD-TY8">
+                                <rect key="frame" x="0.0" y="64" width="375" height="286"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="xXm-oJ-vzb"/>
                     </view>
                     <navigationItem key="navigationItem" id="Pp1-uQ-AXa"/>
+                    <connections>
+                        <outlet property="backdropImage" destination="yOt-YD-TY8" id="EmG-92-izi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rnu-Pl-OwU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1727" y="26"/>
+            <point key="canvasLocation" x="1840.8" y="25.637181409295355"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Svl-ey-0BN">
@@ -99,4 +109,7 @@
             <point key="canvasLocation" x="40.799999999999997" y="25.637181409295355"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="aA9-Rm-e89"/>
+    </inferredMetricsTieBreakers>
 </document>
