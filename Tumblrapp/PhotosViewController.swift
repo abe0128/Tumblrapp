@@ -9,16 +9,20 @@
 import UIKit
 import AlamofireImage
 
-class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
     
     @IBOutlet weak var tableView: UITableView!
     
     var posts: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
+    var isMoreDataLoading = false
+    
+    //var image: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(PhotosViewController.didPullToRefresh(_:)), for: .valueChanged)
@@ -26,6 +30,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.estimatedRowHeight = 200
         fetchPhotos()
         
     }
@@ -82,8 +88,47 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var photoViewController = segue.destination as! PhotosViewController
+        let vc = segue.destination as! PhotoDetailsViewController
+        let cell = sender as! PhotoCell
         
-        PhotosViewController.image = self.imageView.image
+        vc.image = cell.photoImage.image
+    }
+    
+    func loadMoreData() {
+        
+        // ... Create the NSURLRequest (myRequest) ...
+        let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")!
+        
+        // Configure session so that completion handler is executed on main UI thread
+        let session = URLSession(configuration: URLSessionConfiguration.default,
+                                 delegate:nil,
+                                 delegateQueue:OperationQueue.main
+        )
+        let task : URLSessionDataTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
+            
+            // Update flag
+            self.isMoreDataLoading = false
+            
+            // ... Use the new data to update the data source ...
+            
+            // Reload the tableView now that there is new data
+            self.tableView.reloadData()
+        })
+        task.resume()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    {
+        if (!isMoreDataLoading) {
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging)
+            {
+                isMoreDataLoading = true
+                
+                loadMoreData()
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@
         <!--Photos of Humans-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="PhotosViewController" customModule="Tumblrapp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -22,26 +23,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="190" id="xFX-cd-ZqK" customClass="PhotoCell" customModule="Tumblrapp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="190"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="224" id="xFX-cd-ZqK" customClass="PhotoCell" customModule="Tumblrapp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="224"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xFX-cd-ZqK" id="nf5-h9-TE4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="189.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xFX-cd-ZqK" id="nf5-h9-TE4">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="223.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tLs-ah-ebp">
-                                                    <rect key="frame" x="52" y="19" width="240" height="128"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tLs-ah-ebp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="173.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="128" id="99E-yD-8Zp"/>
-                                                        <constraint firstAttribute="width" constant="240" id="sir-s2-hpQ"/>
+                                                        <constraint firstAttribute="height" constant="173.5" id="3yI-MC-a7Y"/>
+                                                        <constraint firstAttribute="width" constant="375" id="bvx-EG-NTl"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="tLs-ah-ebp" secondAttribute="trailing" constant="53" id="5du-Mr-jAF"/>
-                                                <constraint firstItem="tLs-ah-ebp" firstAttribute="leading" secondItem="nf5-h9-TE4" secondAttribute="leading" constant="52" id="8Om-lU-lI6"/>
-                                                <constraint firstItem="tLs-ah-ebp" firstAttribute="top" secondItem="nf5-h9-TE4" secondAttribute="top" constant="19" id="Y5N-cQ-h7X"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tLs-ah-ebp" secondAttribute="bottom" constant="21" id="drW-PV-B72"/>
+                                                <constraint firstItem="tLs-ah-ebp" firstAttribute="top" secondItem="nf5-h9-TE4" secondAttribute="top" id="S1u-4D-PeN"/>
+                                                <constraint firstItem="tLs-ah-ebp" firstAttribute="leading" secondItem="nf5-h9-TE4" secondAttribute="leading" id="arh-8H-q3x"/>
+                                                <constraint firstAttribute="bottom" secondItem="tLs-ah-ebp" secondAttribute="bottom" constant="15" id="v39-lR-0wj"/>
+                                                <constraint firstAttribute="trailing" secondItem="tLs-ah-ebp" secondAttribute="trailing" id="vMU-La-RNY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -60,7 +61,6 @@
                         <outlet property="tableView" destination="d55-Gs-pBI" id="hiL-m1-y48"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="980" y="25.637181409295355"/>
         </scene>
