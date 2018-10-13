@@ -13,21 +13,17 @@ class PhotoDetailsViewController: UIViewController, UIScrollViewDelegate {
     var image: UIImage!
     var imageView: UIImageView!
     
-    
-   
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var detailImage: UIImageView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 6.0
-
+        scrollView.maximumZoomScale = 3.0
         
         detailImage.image = image
     }
