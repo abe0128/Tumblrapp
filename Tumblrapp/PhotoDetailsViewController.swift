@@ -24,6 +24,12 @@ class PhotoDetailsViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 6.0
+        
+        //let image = UIImage(named: "detailImage")
+        imageView = UIImageView(image: image)
+        scrollView.contentSize = image!.size
+        //scrollView.addSubview(imageView)
+        scrollView.zoomScale = 0.5
 
         
         detailImage.image = image
