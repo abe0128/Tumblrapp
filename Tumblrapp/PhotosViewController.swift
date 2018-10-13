@@ -15,7 +15,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var tableView: UITableView!
     
-    var posts: [[String: Any]] = []
+    var posts: [NSDictionary] = []
+    var currentOffset: Int = 0
     var refreshControl: UIRefreshControl!
     var isMoreDataLoading = false
     
@@ -34,7 +35,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(PhotosViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
-        //fetchPhotos()
+        fetchPhotos()
         
     }
     
@@ -54,7 +55,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                 // Get the dictionary from the response key
                 let responseDictionary = dataDictionary["response"] as! [String: Any]
                 // Store the returned array of dictionaries in our posts property
-                self.posts = responseDictionary["posts"] as! [[String: Any]]
+                //self.posts = responseDictionary["posts"] as! [[String: Any]]
+                self.posts.append(contentsOf: responseDictionary["posts"] as! [NSDictionary])
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             }
@@ -97,33 +99,41 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func loadMoreData() {
-        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV&offset=\(self.posts.count)")
-        let request = URLRequest(url: url!)
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate:nil,
-            delegateQueue:OperationQueue.main
+        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV&offset=\(self.posts.count)")!
+        let session = URLSession(configuration: URLSessionConfiguration.default,
+                                 delegate:nil,
+                                 delegateQueue:OperationQueue.main
         )
-        
-        let task : URLSessionDataTask = session.dataTask(
-            with: request as URLRequest,
-            completionHandler: { (data, response, error) in
-                self.isMoreDataLoading = false
-                if let data = data {
-                    if let responseDictionary = try! JSONSerialization.jsonObject(
-                        with: data, options:[]) as? NSDictionary {
-                        print("responseDictionary: \(responseDictionary)")
-                        
-                        // Recall there are two fields in the response dictionary, 'meta' and 'response'.
-                        // This is how we get the 'response' field
-                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
-                        
-                        // This is where you will store the returned array of posts in your posts property
-                        //self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
-                        self.posts = responseFieldDictionary["posts"] as! [NSDictionary] as! [[String : Any]]
-                        self.tableView.reloadData()
-                    }
+        let task : URLSessionDataTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
+            
+            // Update flag
+            self.isMoreDataLoading = false
+            
+            if let data = data {
+                // ... use the new data to update the data source ...
+                if let responseDictionary = try! JSONSerialization.jsonObject(
+                    with: data, options:[]) as? NSDictionary {
+                    // NOTE: DEBUG CODE
+                    // print("responseDictionary: \(responseDictionary)")
+                    
+                    // Recall there are two fields in the response dictionary, 'meta' and 'response'.
+                    // This is how we get the 'response' field
+                    let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
+                    
+                    // This is where you will store the returned array of posts in your posts property
+                    // self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
+                    self.posts.append(contentsOf: responseFieldDictionary["posts"] as! [NSDictionary])
+                    
+                    self.currentOffset += 20
+                    
+                    // NOTE: DEBUG CODE
+                    // print("posts: \(self.posts)")
+                    print("current offset: \(self.currentOffset)")
                 }
+            }
+            
+            // Reload the tableView now that there is new data
+            self.tableView.reloadData()
         });
         task.resume()
     }
@@ -138,8 +148,6 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging)
             {
                 isMoreDataLoading = true
-                
-                //fetchPhotos()
                 loadMoreData()
             }
         }

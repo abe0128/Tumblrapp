@@ -80,7 +80,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <outlet property="delegate" destination="cQE-lU-fqk" id="fcx-6b-YO6"/>
+                                    <outlet property="delegate" destination="cQE-lU-fqk" id="oUY-a8-6Rr"/>
                                 </connections>
                             </scrollView>
                         </subviews>
@@ -90,7 +90,7 @@
                     <navigationItem key="navigationItem" id="Pp1-uQ-AXa"/>
                     <connections>
                         <outlet property="detailImage" destination="yOt-YD-TY8" id="Oxa-5f-fe3"/>
-                        <outlet property="scrollView" destination="kfl-Bn-78d" id="W00-vw-Crg"/>
+                        <outlet property="scrollView" destination="kfl-Bn-78d" id="k69-aE-Nmu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rnu-Pl-OwU" userLabel="First Responder" sceneMemberID="firstResponder"/>

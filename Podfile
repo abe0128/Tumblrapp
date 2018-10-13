@@ -7,6 +7,7 @@ target 'Tumblrapp' do
 
   # Pods for Tumblrapp
   pod 'AlamofireImage'
+  Pod 'SwiftyJSON'
 
   target 'TumblrappTests' do
     inherit! :search_paths
